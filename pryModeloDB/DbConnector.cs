@@ -1,172 +1,82 @@
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.IO;
 
 namespace pryModeloDB
 {
-    public static class DbConnector
+    public class DbConnector
     {
-        private static readonly string[] AceProviders =
+        private const string Proveedor = "Microsoft.ACE.OLEDB.16.0";
+        private OleDbConnection conexion;
+
+        public bool EstaConectado
         {
-            "Microsoft.ACE.OLEDB.16.0",
-            "Microsoft.ACE.OLEDB.12.0",
-            "Microsoft.Jet.OLEDB.4.0"
-        };
-
-        public static string LastError { get; private set; }
-
-        public static OleDbConnection TryConnect(string filePath)
-        {
-            LastError = null;
-
-            if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
-            {
-                LastError = "La ruta indicada no existe o no apunta a un archivo valido.";
-                return null;
-            }
-
-            string extension = Path.GetExtension(filePath).ToLowerInvariant();
-
-            if (extension == ".xls" || extension == ".xlsx")
-            {
-                foreach (string provider in AceProviders)
-                {
-                    string excelProperties = extension == ".xlsx"
-                        ? "Excel 12.0 Xml;HDR=YES;IMEX=1"
-                        : "Excel 8.0;HDR=YES;IMEX=1";
-
-                    string connectionString = $"Provider={provider};Data Source={filePath};Extended Properties=\"{excelProperties}\";";
-                    OleDbConnection connection = TryOpen(connectionString);
-                    if (connection != null)
-                    {
-                        return connection;
-                    }
-                }
-
-                AppendError("No se encontro un proveedor compatible para abrir el archivo de Excel.");
-                return null;
-            }
-
-            if (extension == ".mdb" || extension == ".accdb")
-            {
-                foreach (string provider in AceProviders)
-                {
-                    string connectionString = $"Provider={provider};Data Source={filePath};Persist Security Info=False;";
-                    OleDbConnection connection = TryOpen(connectionString);
-                    if (connection != null)
-                    {
-                        return connection;
-                    }
-                }
-
-                AppendError("No se encontro un proveedor compatible para abrir la base Access.");
-                return null;
-            }
-
-            LastError = "Tipo de archivo no soportado. Solo se permiten Access o Excel.";
-            return null;
+            get { return conexion != null && conexion.State == ConnectionState.Open; }
         }
 
-        private static OleDbConnection TryOpen(string connectionString)
+        public void Conectar(string rutaArchivo)
         {
-            try
+            Cerrar();
+
+            if (string.IsNullOrWhiteSpace(rutaArchivo) || !File.Exists(rutaArchivo))
             {
-                OleDbConnection connection = new OleDbConnection(connectionString);
-                connection.Open();
-                return connection;
+                throw new FileNotFoundException("No se encontro el archivo Access seleccionado.");
             }
-            catch (Exception ex)
+
+            string cadenaConexion = "Provider=" + Proveedor + ";Data Source=" + rutaArchivo + ";Persist Security Info=False;";
+            conexion = new OleDbConnection(cadenaConexion);
+            conexion.Open();
+        }
+
+        public DataTable ObtenerTablas()
+        {
+            if (!EstaConectado)
             {
-                AppendError(ex.Message);
-                return null;
+                return new DataTable();
+            }
+
+            DataTable esquema = conexion.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+            DataTable tablas = new DataTable();
+            tablas.Columns.Add("NombreTabla");
+
+            foreach (DataRow fila in esquema.Rows)
+            {
+                string tipo = fila["TABLE_TYPE"].ToString();
+                string nombre = fila["TABLE_NAME"].ToString();
+
+                if (tipo == "TABLE" && !nombre.StartsWith("MSys"))
+                {
+                    tablas.Rows.Add(nombre);
+                }
+            }
+
+            return tablas;
+        }
+
+        public DataTable ObtenerDatos(string nombreTabla)
+        {
+            if (!EstaConectado || string.IsNullOrWhiteSpace(nombreTabla))
+            {
+                return new DataTable();
+            }
+
+            string consulta = "SELECT * FROM [" + nombreTabla + "]";
+
+            using (OleDbDataAdapter adaptador = new OleDbDataAdapter(consulta, conexion))
+            {
+                DataTable datos = new DataTable();
+                adaptador.Fill(datos);
+                return datos;
             }
         }
 
-        public static List<string> GetTableNames(OleDbConnection connection)
+        public void Cerrar()
         {
-            List<string> tables = new List<string>();
-
-            if (connection == null)
+            if (conexion != null)
             {
-                return tables;
-            }
-
-            try
-            {
-                DataTable schema = connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                if (schema == null)
-                {
-                    return tables;
-                }
-
-                foreach (DataRow row in schema.Rows)
-                {
-                    string tableType = row["TABLE_TYPE"].ToString();
-                    string tableName = row["TABLE_NAME"].ToString();
-
-                    if (string.IsNullOrWhiteSpace(tableName))
-                    {
-                        continue;
-                    }
-
-                    if (tableType == "TABLE" || tableType == "VIEW" || tableType == "SYSTEM TABLE")
-                    {
-                        if (!tables.Contains(tableName))
-                        {
-                            tables.Add(tableName);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                AppendError("No se pudieron obtener las tablas: " + ex.Message);
-            }
-
-            return tables;
-        }
-
-        public static DataTable GetTableData(OleDbConnection connection, string tableName)
-        {
-            DataTable table = new DataTable();
-
-            if (connection == null || string.IsNullOrWhiteSpace(tableName))
-            {
-                return table;
-            }
-
-            try
-            {
-                using (OleDbCommand command = new OleDbCommand($"SELECT * FROM [{tableName}]", connection))
-                using (OleDbDataAdapter adapter = new OleDbDataAdapter(command))
-                {
-                    adapter.Fill(table);
-                }
-            }
-            catch (Exception ex)
-            {
-                AppendError("No se pudieron cargar los datos: " + ex.Message);
-            }
-
-            return table;
-        }
-
-        private static void AppendError(string message)
-        {
-            if (string.IsNullOrWhiteSpace(message))
-            {
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(LastError))
-            {
-                LastError = message;
-            }
-            else
-            {
-                LastError += Environment.NewLine + message;
+                conexion.Close();
+                conexion.Dispose();
+                conexion = null;
             }
         }
     }

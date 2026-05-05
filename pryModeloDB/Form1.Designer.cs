@@ -2,232 +2,148 @@ namespace pryModeloDB
 {
     partial class Form1
     {
-        /// <summary>
-        /// Variable del diseñador necesaria.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
+        private System.Windows.Forms.Button btnSeleccionarArchivo;
+        private System.Windows.Forms.TextBox txtArchivo;
+        private System.Windows.Forms.ComboBox cmbTablas;
+        private System.Windows.Forms.DataGridView dgvDatos;
+        private System.Windows.Forms.Label lblArchivo;
+        private System.Windows.Forms.Label lblTabla;
+        private System.Windows.Forms.Label lblEstado;
+        private System.Windows.Forms.Button btnLimpiar;
 
-        /// <summary>
-        /// Limpiar los recursos que se estén usando.
-        /// </summary>
-        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
-        #region Código generado por el Diseñador de Windows Forms
-
-        /// <summary>
-        /// Método necesario para admitir el Diseñador. No se puede modificar
-        /// el contenido de este método con el editor de código.
-        /// </summary>
         private void InitializeComponent()
         {
-            this.btnSeleccionarCarpeta = new System.Windows.Forms.Button();
-            this.lstBases = new System.Windows.Forms.ListBox();
-            this.lstTablas = new System.Windows.Forms.ListBox();
+            this.btnSeleccionarArchivo = new System.Windows.Forms.Button();
+            this.txtArchivo = new System.Windows.Forms.TextBox();
+            this.cmbTablas = new System.Windows.Forms.ComboBox();
             this.dgvDatos = new System.Windows.Forms.DataGridView();
-            this.lblCarpeta = new System.Windows.Forms.Label();
-            this.txtCarpeta = new System.Windows.Forms.TextBox();
-            this.btnRecargar = new System.Windows.Forms.Button();
             this.lblArchivo = new System.Windows.Forms.Label();
-            this.lblArchivoValor = new System.Windows.Forms.Label();
             this.lblTabla = new System.Windows.Forms.Label();
-            this.lblTablaValor = new System.Windows.Forms.Label();
-            this.lblRegistros = new System.Windows.Forms.Label();
-            this.lblRegistrosValor = new System.Windows.Forms.Label();
             this.lblEstado = new System.Windows.Forms.Label();
-            this.lblEstadoValor = new System.Windows.Forms.Label();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnSeleccionarCarpeta
+            // btnSeleccionarArchivo
             // 
-            this.btnSeleccionarCarpeta.Location = new System.Drawing.Point(12, 39);
-            this.btnSeleccionarCarpeta.Name = "btnSeleccionarCarpeta";
-            this.btnSeleccionarCarpeta.Size = new System.Drawing.Size(172, 31);
-            this.btnSeleccionarCarpeta.TabIndex = 0;
-            this.btnSeleccionarCarpeta.Text = "Seleccionar carpeta";
-            this.btnSeleccionarCarpeta.UseVisualStyleBackColor = true;
-            this.btnSeleccionarCarpeta.Click += new System.EventHandler(this.btnSeleccionarCarpeta_Click);
+            this.btnSeleccionarArchivo.Location = new System.Drawing.Point(12, 34);
+            this.btnSeleccionarArchivo.Name = "btnSeleccionarArchivo";
+            this.btnSeleccionarArchivo.Size = new System.Drawing.Size(150, 30);
+            this.btnSeleccionarArchivo.TabIndex = 0;
+            this.btnSeleccionarArchivo.Text = "Seleccionar Access";
+            this.btnSeleccionarArchivo.BackColor = System.Drawing.Color.FromArgb(111, 86, 67);
+            this.btnSeleccionarArchivo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSeleccionarArchivo.FlatAppearance.BorderSize = 0;
+            this.btnSeleccionarArchivo.ForeColor = System.Drawing.Color.White;
+            this.btnSeleccionarArchivo.UseVisualStyleBackColor = false;
+            this.btnSeleccionarArchivo.Click += new System.EventHandler(this.btnSeleccionarArchivo_Click);
             // 
-            // lstBases
+            // txtArchivo
             // 
-            this.lstBases.FormattingEnabled = true;
-            this.lstBases.Location = new System.Drawing.Point(12, 124);
-            this.lstBases.Name = "lstBases";
-            this.lstBases.Size = new System.Drawing.Size(277, 160);
-            this.lstBases.TabIndex = 1;
-            this.lstBases.SelectedIndexChanged += new System.EventHandler(this.lstBases_SelectedIndexChanged);
+            this.txtArchivo.Location = new System.Drawing.Point(168, 39);
+            this.txtArchivo.Name = "txtArchivo";
+            this.txtArchivo.ReadOnly = true;
+            this.txtArchivo.BackColor = System.Drawing.Color.FromArgb(250, 247, 242);
+            this.txtArchivo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtArchivo.Size = new System.Drawing.Size(480, 22);
+            this.txtArchivo.TabIndex = 1;
             // 
-            // lstTablas
+            // cmbTablas
             // 
-            this.lstTablas.FormattingEnabled = true;
-            this.lstTablas.Location = new System.Drawing.Point(307, 124);
-            this.lstTablas.Name = "lstTablas";
-            this.lstTablas.Size = new System.Drawing.Size(214, 160);
-            this.lstTablas.TabIndex = 2;
-            this.lstTablas.SelectedIndexChanged += new System.EventHandler(this.lstTablas_SelectedIndexChanged);
+            this.cmbTablas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTablas.FormattingEnabled = true;
+            this.cmbTablas.Location = new System.Drawing.Point(75, 82);
+            this.cmbTablas.Name = "cmbTablas";
+            this.cmbTablas.Size = new System.Drawing.Size(250, 21);
+            this.cmbTablas.BackColor = System.Drawing.Color.FromArgb(250, 247, 242);
+            this.cmbTablas.TabIndex = 2;
+            this.cmbTablas.SelectedIndexChanged += new System.EventHandler(this.cmbTablas_SelectedIndexChanged);
             // 
             // dgvDatos
             // 
             this.dgvDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDatos.Location = new System.Drawing.Point(12, 315);
+            this.dgvDatos.Location = new System.Drawing.Point(12, 125);
             this.dgvDatos.Name = "dgvDatos";
-            this.dgvDatos.Size = new System.Drawing.Size(886, 284);
+            this.dgvDatos.Size = new System.Drawing.Size(756, 360);
             this.dgvDatos.TabIndex = 3;
-            // 
-            // lblCarpeta
-            // 
-            this.lblCarpeta.AutoSize = true;
-            this.lblCarpeta.Location = new System.Drawing.Point(12, 15);
-            this.lblCarpeta.Name = "lblCarpeta";
-            this.lblCarpeta.Size = new System.Drawing.Size(97, 13);
-            this.lblCarpeta.TabIndex = 4;
-            this.lblCarpeta.Text = "Carpeta analizada:";
-            // 
-            // txtCarpeta
-            // 
-            this.txtCarpeta.Location = new System.Drawing.Point(190, 45);
-            this.txtCarpeta.Name = "txtCarpeta";
-            this.txtCarpeta.ReadOnly = true;
-            this.txtCarpeta.Size = new System.Drawing.Size(561, 20);
-            this.txtCarpeta.TabIndex = 5;
-            // 
-            // btnRecargar
-            // 
-            this.btnRecargar.Location = new System.Drawing.Point(763, 39);
-            this.btnRecargar.Name = "btnRecargar";
-            this.btnRecargar.Size = new System.Drawing.Size(135, 31);
-            this.btnRecargar.TabIndex = 6;
-            this.btnRecargar.Text = "Recargar lista";
-            this.btnRecargar.UseVisualStyleBackColor = true;
-            this.btnRecargar.Click += new System.EventHandler(this.btnRecargar_Click);
             // 
             // lblArchivo
             // 
             this.lblArchivo.AutoSize = true;
-            this.lblArchivo.Location = new System.Drawing.Point(544, 124);
+            this.lblArchivo.Location = new System.Drawing.Point(12, 14);
             this.lblArchivo.Name = "lblArchivo";
-            this.lblArchivo.Size = new System.Drawing.Size(41, 13);
-            this.lblArchivo.TabIndex = 7;
-            this.lblArchivo.Text = "Archivo";
-            // 
-            // lblArchivoValor
-            // 
-            this.lblArchivoValor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblArchivoValor.Location = new System.Drawing.Point(547, 141);
-            this.lblArchivoValor.Name = "lblArchivoValor";
-            this.lblArchivoValor.Size = new System.Drawing.Size(351, 27);
-            this.lblArchivoValor.TabIndex = 8;
-            this.lblArchivoValor.Text = "-";
-            this.lblArchivoValor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblArchivo.Size = new System.Drawing.Size(46, 13);
+            this.lblArchivo.TabIndex = 4;
+            this.lblArchivo.Text = "Archivo:";
             // 
             // lblTabla
             // 
             this.lblTabla.AutoSize = true;
-            this.lblTabla.Location = new System.Drawing.Point(544, 181);
+            this.lblTabla.Location = new System.Drawing.Point(12, 85);
             this.lblTabla.Name = "lblTabla";
-            this.lblTabla.Size = new System.Drawing.Size(34, 13);
-            this.lblTabla.TabIndex = 9;
-            this.lblTabla.Text = "Tabla";
-            // 
-            // lblTablaValor
-            // 
-            this.lblTablaValor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblTablaValor.Location = new System.Drawing.Point(547, 198);
-            this.lblTablaValor.Name = "lblTablaValor";
-            this.lblTablaValor.Size = new System.Drawing.Size(351, 27);
-            this.lblTablaValor.TabIndex = 10;
-            this.lblTablaValor.Text = "-";
-            this.lblTablaValor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblRegistros
-            // 
-            this.lblRegistros.AutoSize = true;
-            this.lblRegistros.Location = new System.Drawing.Point(544, 239);
-            this.lblRegistros.Name = "lblRegistros";
-            this.lblRegistros.Size = new System.Drawing.Size(49, 13);
-            this.lblRegistros.TabIndex = 11;
-            this.lblRegistros.Text = "Registros";
-            // 
-            // lblRegistrosValor
-            // 
-            this.lblRegistrosValor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblRegistrosValor.Location = new System.Drawing.Point(547, 256);
-            this.lblRegistrosValor.Name = "lblRegistrosValor";
-            this.lblRegistrosValor.Size = new System.Drawing.Size(126, 27);
-            this.lblRegistrosValor.TabIndex = 12;
-            this.lblRegistrosValor.Text = "0";
-            this.lblRegistrosValor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblTabla.Size = new System.Drawing.Size(39, 13);
+            this.lblTabla.TabIndex = 5;
+            this.lblTabla.Text = "Tabla:";
             // 
             // lblEstado
             // 
-            this.lblEstado.AutoSize = true;
-            this.lblEstado.Location = new System.Drawing.Point(12, 92);
+            this.lblEstado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblEstado.Location = new System.Drawing.Point(12, 499);
             this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Size = new System.Drawing.Size(43, 13);
-            this.lblEstado.TabIndex = 13;
-            this.lblEstado.Text = "Estado:";
+            this.lblEstado.Size = new System.Drawing.Size(756, 24);
+            this.lblEstado.TabIndex = 6;
+            this.lblEstado.Text = "Seleccione un archivo Access.";
+            this.lblEstado.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblEstado.BackColor = System.Drawing.Color.FromArgb(250, 247, 242);
             // 
-            // lblEstadoValor
+            // btnLimpiar
             // 
-            this.lblEstadoValor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblEstadoValor.Location = new System.Drawing.Point(70, 86);
-            this.lblEstadoValor.Name = "lblEstadoValor";
-            this.lblEstadoValor.Size = new System.Drawing.Size(828, 24);
-            this.lblEstadoValor.TabIndex = 14;
-            this.lblEstadoValor.Text = "-";
-            this.lblEstadoValor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLimpiar.Location = new System.Drawing.Point(664, 34);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(104, 30);
+            this.btnLimpiar.TabIndex = 7;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.BackColor = System.Drawing.Color.FromArgb(150, 132, 112);
+            this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLimpiar.FlatAppearance.BorderSize = 0;
+            this.btnLimpiar.ForeColor = System.Drawing.Color.White;
+            this.btnLimpiar.UseVisualStyleBackColor = false;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // Form1
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(910, 611);
-            this.Controls.Add(this.lblEstadoValor);
+            this.BackColor = System.Drawing.Color.FromArgb(241, 235, 226);
+            this.ClientSize = new System.Drawing.Size(780, 535);
+            this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.lblEstado);
-            this.Controls.Add(this.lblRegistrosValor);
-            this.Controls.Add(this.lblRegistros);
-            this.Controls.Add(this.lblTablaValor);
             this.Controls.Add(this.lblTabla);
-            this.Controls.Add(this.lblArchivoValor);
             this.Controls.Add(this.lblArchivo);
-            this.Controls.Add(this.btnRecargar);
-            this.Controls.Add(this.txtCarpeta);
-            this.Controls.Add(this.lblCarpeta);
             this.Controls.Add(this.dgvDatos);
-            this.Controls.Add(this.lstTablas);
-            this.Controls.Add(this.lstBases);
-            this.Controls.Add(this.btnSeleccionarCarpeta);
+            this.Controls.Add(this.cmbTablas);
+            this.Controls.Add(this.txtArchivo);
+            this.Controls.Add(this.btnSeleccionarArchivo);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Modelo de Explorador de BD";
+            this.Text = "Modelo minimo Access";
+            this.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Italic);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
-
-        #endregion
-
-        private System.Windows.Forms.Button btnSeleccionarCarpeta;
-        private System.Windows.Forms.ListBox lstBases;
-        private System.Windows.Forms.ListBox lstTablas;
-        private System.Windows.Forms.DataGridView dgvDatos;
-        private System.Windows.Forms.Label lblCarpeta;
-        private System.Windows.Forms.TextBox txtCarpeta;
-        private System.Windows.Forms.Button btnRecargar;
-        private System.Windows.Forms.Label lblArchivo;
-        private System.Windows.Forms.Label lblArchivoValor;
-        private System.Windows.Forms.Label lblTabla;
-        private System.Windows.Forms.Label lblTablaValor;
-        private System.Windows.Forms.Label lblRegistros;
-        private System.Windows.Forms.Label lblRegistrosValor;
-        private System.Windows.Forms.Label lblEstado;
-        private System.Windows.Forms.Label lblEstadoValor;
     }
 }
